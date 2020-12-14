@@ -2,9 +2,13 @@
 
 This repository contains an eye movement dataset and a classifer. 
 
-The orignial and processed dataset as well as pre-processing code is avaliable now. 
+## To do list
+* [x] Original dataset
+* [x] Processed dataset
+* [x] Code for pre-processing
+* [ ] Classifier
+* [ ] Step-by-step tutorial
 
-The classifer is coming soon.
 
 ## Cite
 Please cite with the following Bibtex code:

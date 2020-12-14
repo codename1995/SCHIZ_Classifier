@@ -22,13 +22,13 @@ toc;
 SubjectID = genSubjectID();
 EyeDataPath = fullfile(DataPath, 'EyeTrackingData');
 
-% tic;
-% fprintf('get BlinkCount, Duration, SampleCount from Trial Report.\n');
-% cd ..
-% BC_Dura_SC = saveTrialReportToStruct(EyeDataPath, SubjectID, cellImgNamesJPG); %BlinkCount, Duration, SampleCount
-% cd SCHIZ_Classifer
-% save(fullfile(OutputPath, 'ThreeColsInTrialReport.mat'),'BC_Dura_SC');
-% toc;
+tic;
+fprintf('get BlinkCount, Duration, SampleCount from Trial Report.\n');
+cd ..
+BC_Dura_SC = saveTrialReportToStruct(EyeDataPath, SubjectID, cellImgNamesJPG); %BlinkCount, Duration, SampleCount
+cd SCHIZ_Classifer
+save(fullfile(OutputPath, 'ThreeColsInTrialReport.mat'),'BC_Dura_SC');
+toc;
 
 tic;
 fprintf('saveFixationsToStruct\n');
