@@ -1,6 +1,6 @@
 # Effective schizophrenia recognition using discriminative eye movement features and model-metric based features
 
-This repository contains an eye movement dataset and a classifer. 
+This repository contains an eye movement dataset and a classifier. 
 
 ## To do list
 * [x] Original dataset
@@ -14,7 +14,7 @@ This repository contains an eye movement dataset and a classifer.
 Please cite with the following Bibtex code:
 ```
 
-@article{SCHIZ_Classifer,
+@article{SCHIZ_Classifier,
 title = "Effective schizophrenia recognition using discriminative eye movement features and model-metric based features",
 journal = "Pattern Recognition Letters",
 volume = "138",
@@ -70,7 +70,7 @@ The specific meaning of above basic items can be found in [EyeLink Data Viewer U
 * ``./saveReportToMat/getFixationData.m``
 * ``./saveReportToMat/saveFixationsToStruct.m``
 
-## Classifer
+## Classifier
 Coming soon.
 
 ## Acknowledgement
