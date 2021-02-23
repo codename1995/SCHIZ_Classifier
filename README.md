@@ -71,7 +71,7 @@ The specific meaning of above basic items can be found in [EyeLink Data Viewer U
 * ``./saveReportToMat/saveFixationsToStruct.m``
 
 ## Classifier
-Coming soon.
+This part will be updated before 19th March 2021.
 
 ## Acknowledgement
 The code is heavily inspired by the following project:
@@ -80,7 +80,7 @@ The code is heavily inspired by the following project:
 Thanks for their contributions.
 
 ## Contact 
-If any question, please contact codename1995@shu.edu.cn
+If you have any questions, please contact me (codename1995@shu.edu.cn) or my supervisor Prof. Zhi Liu (liuzhi@staff.shu.edu.cn).
 
 ## License 
 This code is distributed under MIT LICENSE.
