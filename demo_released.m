@@ -112,3 +112,164 @@ TotalTable(:,26) = BC_Dura_SC(:,2); % Duration
 TotalTable(:,27) = BC_Dura_SC(:,3); % SampleCount 
 
 
+% 5. Calculate metric-related data (ML-Net,SAM-VGG)
+load('MetricRelatedFeatures\FD_metric201912.mat','FD_metric','FD_metric_name');
+% Some code of experiment but not used in final version
+% metric_resnet = FD_metric(:,13:18);
+% metric_resnet_name = FD_metric_name(13:18);
+% FD_metric(:,13:18) = [];
+% FD_metric_name(:,13:18) = [];
+% cell_model_name = {'FES','GBVS','Itti_Koch','LDS','ResNet'};
+% for i = 1:length(cell_model_name)
+%     if i==5
+%         FD_metric = [FD_metric, metric_resnet];
+%         FD_metric_name = [FD_metric_name, metric_resnet_name];
+%         continue;
+%     end        
+%     model_name = char(cell_model_name(i));
+%     filename = ['模型及评价指标\metrics_result\', model_name,...
+%         '_metric.mat'];
+%     matname = [model_name,'_metric'];
+%     metric_name_name = [model_name,'_metric_name'];
+%     structdata = load(filename,matname,metric_name_name);
+%     FD_metric = [FD_metric, structdata.(matname)];
+%     FD_metric_name = [FD_metric_name, structdata.(metric_name_name)];
+% end
+FD_metric = FD_metric(:,[1,7,13,4,10,16]);
+FD_metric_name = FD_metric_name(:,[1,7,13,4,10,16]);
+N_fea = size(TotalTable,2);
+TotalTable(:,28:28+size(FD_metric,2)-1) = FD_metric;
+
+% 6.1 Delete samples (=rows) without fix or sac
+rowsToDelete = sortrows([rowsToDelete_Fix rowsToDelete_Sac]',-1); % Descending sort降序排列，并更改为列向量
+rowsToDelete = unique(rowsToDelete);%去除重复项
+for row = rowsToDelete
+    TotalTable(row,:) = [];
+end
+
+
+TotalTable(:,18) = TotalTable(:,13)./TotalTable(:,16);%瞳孔直径，max/mean
+TotalTable(:,22) = (TotalTable(:,13)-TotalTable(:,20))./TotalTable(:,16);%瞳孔直径动态范围
+
+%第二次删除，删除有NAN的行
+[m,n] = size(TotalTable);
+rowsnan = [];
+for row = m:-1:1
+    for col = 4:1:n
+        temp = TotalTable(row,col);
+        if isnan(temp)
+            fprintf('Not a Number! row:%d col:%d\n',row,col);
+            TotalTable(row,:) = [];
+            rowsnan = [rowsnan;row]; 
+            break;
+        end
+    end
+end
+rowsnan = unique(rowsnan);
+
+% TotalTable = removeto(TotalTable);
+% cnt = 0;
+% load('rcrdHuang.mat','rcrd');
+% m1 = size(TotalTable,1);
+% m2 = size(rcrd,1);
+% for row1 = m1:-1:1
+%     k1 = TotalTable(row1,1);
+%     pic1 = TotalTable(row1,2);
+%     for row2 = 1:1:m2
+%         k2 = rcrd(row2,1);    
+%         pic2 = rcrd(row2,2);
+%         if(k1==k2&&pic1==pic2)
+%             cnt = cnt + 1;
+%             break;
+%         end
+%         if row2 == m2
+%             TotalTable(row1,:) = [];
+%         end
+%     end
+% end
+
+
+FeatureName = InputName(FD_metric_name);
+FeatureData = TotalTable;
+FeatureInfo = calcSampleInfo(FeatureData);
+info.generatedFile = 'generateFeatureData201912.m';
+save('Data\FeatureData201912.mat','FeatureData','FeatureName','FeatureInfo','info');
+toc;
+
+
+function FeatureName = InputName(FD_metric_name)
+FeatureName(1,1) = {'SubjectNo.'};
+FeatureName(1,2) = {'ImageNo.'};
+FeatureName(1,3) = {'Label'};
+FeatureName(1,4) = {'Avg Fix Duration'};
+FeatureName(1,5) = {'Avg Sac Duration'};
+FeatureName(1,6) = {'Avg X Resolution'};
+FeatureName(1,7) = {'Avg Y Resolution'};
+FeatureName(1,8) = {'Blink Count'};
+FeatureName(1,9) = {'Valid Viewing Duration'};
+FeatureName(1,10) = {'Fix Count'};
+FeatureName(1,11) = {'Max Fix Duration'};
+FeatureName(1,12) = {'Min Fix Duration'};
+FeatureName(1,13) = {'Max Pupil Size'};
+FeatureName(1,14) = {'X to Max Pupil Size'}; % The x-coordination of the fix with max pupil size
+FeatureName(1,15) = {'Y to Max Pupil Size'};
+FeatureName(1,16) = {'Avg Pupil Size'};
+FeatureName(1,17) = {'Sac Count'};
+FeatureName(1,18) = {'Pupil Size Ratio'};
+FeatureName(1,19) = {'Fix Duration'};
+FeatureName(1,20) = {'Min Pupil Size'};
+FeatureName(1,21) = {'Avg Sac Velocity'};
+FeatureName(1,22) = {'Dynamic Range of Pupil Size'};
+FeatureName(1,23) = {'Saccadic Amplitude'};
+FeatureName(1,24) = {'Fix Skewness'};
+FeatureName(1,25) = {'Outside Fixation Count'};
+
+% Dec 2018: Some date from Trial Report.
+FeatureName(1,26) = {'(TrialReport)Duration'};
+FeatureName(1,27) = {'(TrialReport)SampleCount'};
+
+% Model-metric based features
+FeatureName(1,28:28+length(FD_metric_name)-1) = FD_metric_name;
+end
+
+function SampleInfo=calcSampleInfo(FeatureData)
+
+    % The number of samples
+    SampleInfo.Nsamples = size(FeatureData,1);
+    
+    % The number of each subject's samples
+    IdxTester = sortrows(unique(FeatureData(:,1)));
+    Ntester = length(IdxTester);
+    for i = 1:Ntester
+        idx = IdxTester(i);
+        SampleInfo.NTesterSamples{i} = sum(FeatureData(:,1)==idx);        
+    end
+    
+    % The index of valid images for each subject
+    IdxTester = sortrows(unique(FeatureData(:,1)));
+    Ntester = length(IdxTester);
+    for i = 1:Ntester
+        idx = IdxTester(i);
+        SampleInfo.TesterSampleNo(i) = {FeatureData((FeatureData(:,1)==idx),2)};        
+    end
+    
+    % The index of invalid images for each subject
+    IdxTester = sortrows(unique(FeatureData(:,1)));
+    Ntester = length(IdxTester);
+    for i = 1:Ntester
+        idx = IdxTester(i);
+        if SampleInfo.NTesterSamples{i}==SampleInfo.Nsamples
+            continue;
+        else
+            IdxSamples = cell2mat(SampleInfo.TesterSampleNo(i));
+            MissedSamples = [];
+            N = max(cell2mat(SampleInfo.NTesterSamples));
+            for j = 1:N
+                if sum(j==IdxSamples)==0
+                    MissedSamples = [MissedSamples,j];
+                end
+            end
+            SampleInfo.NTesterMissedSamples(i) = {MissedSamples};
+        end
+    end
+end
