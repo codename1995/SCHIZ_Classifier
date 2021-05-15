@@ -37,7 +37,9 @@ for i = 1:length(SubjectID)
             saccades{pic}.subject{i}.Class = [];
             saccades{pic}.subject{i}.BlinkRound = [];
             saccades{pic}.subject{i}.Amplitude =[];
+            saccades{pic}.subject{i}.TRIAL_START_TIME =[];
             saccades{pic}.subject{i}.CURRENT_SAC_START_TIME =[];
+            saccades{pic}.subject{i}.CURRENT_SAC_END_TIME =[];
         else
             no_saccade = length(vect);
             saccades{pic}.subject{i}.Angle = saccade_num(vect,2);
@@ -55,7 +57,9 @@ for i = 1:length(SubjectID)
             saccades{pic}.subject{i}.Class = saccade_num(vect,14);
             saccades{pic}.subject{i}.BlinkRound = saccade_num(vect,15);
             saccades{pic}.subject{i}.Amplitude = saccade_num(vect,16);
-            saccades{pic}.subject{i}.CURRENT_SAC_START_TIME = saccade_num(vect,17);
+            saccades{pic}.subject{i}.TRIAL_START_TIME = saccade_num(vect,17);
+            saccades{pic}.subject{i}.CURRENT_SAC_START_TIME = saccade_num(vect,18);
+            saccades{pic}.subject{i}.CURRENT_SAC_END_TIME = saccade_num(vect,19);
         end
     end
     fprintf('%d\n',i);

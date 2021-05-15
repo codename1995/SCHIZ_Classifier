@@ -3,7 +3,6 @@ function sac_out = selectSac(sac_in, SaccadesSelectionCriteria)
 % according to the criteria. And delete these saccades at the end of this
 % function.
 
-bOnlyStimulis = params.bOnlyStimulis;
 
 len = length(sac_in.StartX);
 DelVect = zeros(1,len); % Record the index of saccades that will be deleted
