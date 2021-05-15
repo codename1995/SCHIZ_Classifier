@@ -12,8 +12,8 @@ This repository contains an eye movement dataset and a classifier.
   * [x] Fixation-/Saccade-/Trial-related feature
   * [x] Metric-related feature
   * [x] Code for combination
-* [ ] Classifier
-* [ ] Step-by-step tutorial
+* [x] Classifier
+* [x] Step-by-step tutorial
 * [ ] How to calculate metric-related feature
 
 
@@ -79,10 +79,10 @@ The specific meaning of above basic items can be found in [EyeLink Data Viewer U
 
 ## Classifier
 ### Step 1: Features extraction
-We extract the features from the preprocessed dataset and store them at `FeatureData.mat`
+We extract the features from the preprocessed dataset by `extractFeature.m` and store them at `FeatureData.mat`
 
 ### Step 2: 5-fold cross validation
-run `5CV.m`
+run `FiveFoldCV.m`
 
 ## Acknowledgement
 The code is heavily inspired by the following project:

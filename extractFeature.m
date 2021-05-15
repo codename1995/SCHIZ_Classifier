@@ -31,10 +31,11 @@ for pic = 1:100
     for k = 1:70
         fix_origin = fixations{pic}.subject{k};
         nIndex = (k-1)*100 + pic;
-        if(~isempty(fix_origin)) 
+        if(~isempty(fix_origin.fix_x)) 
             fixSelected = selectFix(fix_origin, FixationsSelectionCriteria);
             fix = fixSelected;
-            TotalTable(nIndex,25) = sum(OutOfBoundary(fix, 800, 600));
+%             fprintf('%d %d\n',pic,k);
+            TotalTable(nIndex,25) = fix.Cnt_Fix_Out_Screen;
             if(~isempty(fix.fix_x))
                 [fix,~] = calcFixFeature(fix);
                 TotalTable(nIndex,4) = fix.avg_fix_duration;

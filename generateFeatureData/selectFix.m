@@ -25,7 +25,7 @@ if FixationsSelectionCriteria.RemoveFixationWithBlink
     end
 end
 
-bFixOut = OutOfBoundary(fix_in, 800, 600);
+bFixOut = OutOfBoundary(fix_in, 800, 600)';
 if FixationsSelectionCriteria.RemoveFixationOutOfScreen
     DelVect = DelVect|bFixOut;
 end
