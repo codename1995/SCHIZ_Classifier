@@ -26,6 +26,7 @@ No_CURRENT_FIX_PUPIL            = RAW(1,:)== string('CURRENT_FIX_PUPIL');%3/24新
 No_CURRENT_FIX_X_RESOLUTION     = RAW(1,:)== string('CURRENT_FIX_X_RESOLUTION');%3/24新增该注视点X方向分辨率
 No_CURRENT_FIX_Y_RESOLUTION     = RAW(1,:)== string('CURRENT_FIX_Y_RESOLUTION');%3/24新增该注视点Y方向分辨率
 No_class                        = RAW(1,:)== string('class');%3/24新增该图片所属分组
+No_PREVIOUS_SAC_END_TIME        = RAW(1,:)== string('PREVIOUS_SAC_END_TIME');
 
 
 %存入返回的矩阵
@@ -39,6 +40,7 @@ fixation_num(:,7) = NUM(:,No_CURRENT_FIX_PUPIL);
 fixation_num(:,8) = NUM(:,No_CURRENT_FIX_X_RESOLUTION);
 fixation_num(:,9) = NUM(:,No_CURRENT_FIX_Y_RESOLUTION);
 fixation_num(:,10) = NUM(:,No_class);
+fixation_num(:,11) = NUM(:,No_PREVIOUS_SAC_END_TIME);
 fixation_cell(:,1) = RAW(2:end,No_pic_3_3);
 fixation_cell(:,2) = RAW(2:end,No_CURRENT_FIX_BLINK_AROUND);
 

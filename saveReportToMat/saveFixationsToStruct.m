@@ -30,6 +30,7 @@ for i = 1:length(SubjectID)
             fixations{pic}.subject{i}.X_Resolution = [];
             fixations{pic}.subject{i}.Y_Resolution = [];
             fixations{pic}.subject{i}.Class = [];
+            fixations{pic}.subject{i}.PREVIOUS_SAC_END_TIME = [];
         else
             no_fixation = length(vect);
             fixations{pic}.subject{i}.fix_x = fixation_num(vect,2);
@@ -40,6 +41,7 @@ for i = 1:length(SubjectID)
             fixations{pic}.subject{i}.X_Resolution = fixation_num(vect,8);
             fixations{pic}.subject{i}.Y_Resolution = fixation_num(vect,9);
             fixations{pic}.subject{i}.Class = fixation_num(vect,10);
+            fixations{pic}.subject{i}.PREVIOUS_SAC_END_TIME = fixation_num(vect,11);
         end
     end
     fprintf('%d\n',i);
