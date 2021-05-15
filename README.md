@@ -8,10 +8,10 @@ This repository contains an eye movement dataset and a classifier.
 * [x] Original dataset
 * [x] Processed dataset
 * [x] Code for pre-processing
-* [ ] Code for feature extraction
+* [x] Code for feature extraction
   * [x] Fixation-/Saccade-/Trial-related feature
-  * [ ] Metric-related feature
-  * [ ] Code for combination
+  * [x] Metric-related feature
+  * [x] Code for combination
 * [ ] Classifier
 * [ ] Step-by-step tutorial
 * [ ] How to calculate metric-related feature
