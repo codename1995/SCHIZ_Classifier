@@ -73,8 +73,10 @@ The specific meaning of above basic items can be found in [EyeLink Data Viewer U
 * ``./saveReportToMat/saveFixationsToStruct.m``
 
 ## Classifier
-### Features extraction
-We extract the features from the preprocessed dataset.
+### Step 1: Features extraction
+We extract the features from the preprocessed dataset and store them at `FeatureData.mat`
+
+### Step 2: 5-fold cross validation
 
 ## Acknowledgement
 The code is heavily inspired by the following project:
